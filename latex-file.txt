@@ -1,0 +1,228 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,arrows,arrows,positioning,fit}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{codeGreen}{rgb}{0,0.6,0}
+\definecolor{codeGrey}{rgb}{44,122,214}
+\definecolor{codeViolet}{rgb}{0.58,0,0.82}
+\definecolor{backgroundCode}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundCode},   
+    commentstyle=\color{codeGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codeGrey},
+    stringstyle=\color{codeViolet},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{QuizzGame (B)}
+
+\author{Diac P. Gabriel}
+%
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Universitatea Alexandru Ioan Cuza, Iasi}
+%
+\maketitle              % typeset the header of the contribution
+%
+\begin{abstract}
+Raportului tehnic al unei aplicatii bazate pe modelul client-server in c.
+
+\end{abstract}
+%
+%
+%
+\section{Introducere}
+Folosind un server multithreading am realizat un quizz game conform cerintele proiectului propus: un server care onoreaza fiecare client in functie de ordinea in care s-au inregistrat, alocand fiecaruia un numar n de secunde ca sa raspunda la o intrebare (stacata intr-un fisier XML) si posibilitatea de a trimite un raspuns inapoi, comunicare implementata prin socket-uri. Serverul va fi de asa natura incat sa primeasca clienti noi la orice stadiu al jocului si sa-si deplaseze focusul de la un client la altul in functie de timpul alocat si raspunsurile prompte ale clientilor.
+
+Aplicatia dispune de o interfata grafica minimalista.
+
+\section{Tehnologii utilizate}
+\subsection{TCP}
+TCP (Transmission Control Protocol) este un protocol de comunicare intre server si client pe baza unui IP prin intermediul caruia se transmite date odata ce serverul accepta si dupa care recunoaste un client, caruia ii aloca un socket deschis. In cadrul acestui protocol, serverul este cel care asteapta ca un client sa initieze conexiunea si totodata el retine acel specific client, lucra care il face potrivit pentru acest gen de aplicatie, unde avem nevoie sa oscilam intre jucatori si sa le retinem rezultatele. De asemenea, TCP ofera optiune de timeout care este importanta in procesul de monitorizare a clientilor, intrucat fiecare jucator are un timp limitat pentru a raspunde la o intrebare.
+\subsection{Ncurses}
+NCurses este o biblioteca grafica simpla, care se lanseaza in terminal. Permite monitorizarea de click-uri si orice actiune de la tastatura. Am ales-o pentru simplitate si usurinta de folosire si instalare. Nu este supraincarcata cu metode si optiuni, suporta structuri repetitive si alte operatii.
+
+\section{Arhitectura}
+\subsection{Concepte}
+Conceptul central al aplicatiei este acela de "THREE-WAY HANDSHAKE", care impune o sincronizare intre client si server si recunoastere reciproca inainte de orice comunicare. Pe deasupra acestui proces exista inca o preconditie pentru participarea jucatorului: un username primit de la tastatura (care mai mult serveste vizual, intrucat un client este identificat dupa socket-ul asociat). Un client primeste automat la conectare un username unic de "guest" care poate fi utilizat in locul unuia personalizat prin trimitea unui username gol (enter fara a scrie nimic).
+
+Un alt concept utilizat este acela de selectie a clientilor. Serverul ignora activitatea de la socket-urile clientilor in asteptare, cand nicio schimbare nu s-a inregistrat (user-ul care este focusat nu s-a schimbat - lucru ce ar fi necesitat ca ceilalti clienti sa stie - sau jocul inca nu s-a incheiat - lucru ce ar fi necesitat trimiterea tuturor clientilor rezultatele: castigatorul si scorul sau).
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\linebreak
+\subsection{Diagrama detaliata}
+\graphicspath{ {./} }
+\includegraphics[scale=0.16]{diagram.png}
+%
+%
+%
+\section{Detalii de implementare}
+\subsection{Sumar}
+Detaliile care tin de interactiune server-client se pot reduce la urmatoarele: dupa ce conexiunea s-a stabilit, se initializeaza o noua instanta al unei structuri de date cu valoarea socket descriptor-ului, username unic autogenerat, un indicator ca userul inca nu e inclus in joc pana nu confirma un nou username de la tastatura; dupa ce si acest user este primit de catre server si instanta este actualizata, clientul va trimite automat o cerere de intrebare care dupa caz va fi refuzata si drept urmare clientul va primi datele userului care raspunde la momentul respectiv la intrebare pentru a le afisa pe ecranul sau; daca clientul este cel focusat atunci va primi intrebarea si timpul ramas sa raspunda; daca timpul expira clientul va fi tratat ca in cazul anterior si un altul va primi focus-ul. 
+\subsection{Structuri de date}
+\begin{lstlisting}[style=CStyle]
+struct UserNode {
+    char username[25];
+    int socket;
+    int disconnected;
+    int hasJoined; //user chose his username or the guest username
+    int score; //number of correct answears
+    int on_hold; //user will be ignored if he is not the focused one untill a change occurs
+    struct UserNode *next;
+    struct UserNode *prev;
+};
+struct UserNode *head = NULL;
+struct UserNode *last = NULL;
+struct UserNode* userInQuestion = NULL;
+\end{lstlisting}
+In server.c se itereaza printr-o lista inlantuita a unei astfel de structuri de date si se verifica statusul lor: conectat dar inca nepartipant (isJoined == 0 \&\& socket != 0 \&\& disconnected != 1), deconectat (disconnected == 1), in asteptare (userul este participant si on$\_$hold == 1; clientul a trimis un request pentru a primi intrebarea, serverul ia trimis datele user-ului care este in fata lui drept raspuns, dupa care, in urmatoarele bucle, va ignora alte request-uri din partea clientului respectiv pana cand el sau alt user va prelua randul sau intrebarile expira dupa ce toti au raspuns), "in focus" (este participant, nu este in asteptare si socket-ul sau se potriveste cu o variabila globala de acelasi tip de structura - "userInQuestion"). 
+
+\vspace{3cm}
+\subsection{Operatii relevante pentru lista de clienti}
+\begin{lstlisting}[style=CStyle]
+void pushUserNode(char username[25], int socket) {
+    if (!head) {
+        head = (struct UserNode *)malloc(sizeof(struct UserNode));
+        head->next = NULL;
+        head->prev = NULL;
+        head->disconnected = 0;
+        head->on_hold = 0;
+        strcpy(head->username, username);
+        head->socket = socket;
+        head->hasJoined = 0;
+        head->score = 0;
+        return;
+    }
+    struct UserNode *newNode = (struct UserNode *)malloc(sizeof(struct UserNode));
+    newNode->next = NULL;
+    head->disconnected = 0;
+    head->on_hold = 0;
+    strcpy(newNode->username, username);
+    newNode->socket = socket;
+    newNode->hasJoined = 0;
+    newNode->score = 0;
+
+    if (last == NULL) {
+        head->next = newNode;
+        newNode->prev = head;
+        last = newNode;
+    } else {
+        newNode->prev = last;
+        last->next = newNode;
+        last = last->next;
+    }
+}
+//"data_structures.h"
+\end{lstlisting}
+Functia de mai sus are loc la conectarea clientului. Se marcheaza faptul ca user-ul este conectat dar nu participant, si se actualizeaza lista.
+\subsection{Comunicare}
+Datele transmise intre server si client sunt siruri de caractere care respecta un anumit tipar simplu prin care acestea sunt decodificare dupa primirea lor. Un astfel de sir respecta urmatorul pattern: `\$\{\#cod-comand\}$\sim$\$\{\#continut-relevant-separat\}`
+
+Codul de comanda se afla mereu pe pozitia 0 a textului si este un numar ASCII in intervalul [48, 57] (numere de 1 cifra). Desi este mai ieftin ca spatiu si viteza, este de asemenea greu de citit in cod, asa ca am definit o serie de constante intr-un fisier auxiliar, destul de expresive pentru a fi expuse aici:
+\begin{lstlisting}[style=CStyle]
+//prefixele raspunsuri client
+#define USER_REQUEST_LOGIN 1
+#define USER_REQUEST_GET_QUESTION 2
+#define USER_REQUEST_SUBMIT_RESPONSE 3
+
+//prefixele raspunsuri server
+#define SERVER_RESPONSE_FAIL 0
+#define SERVER_RESPONSE_LOGIN_SUCCESS 1
+#define SERVER_RESPONSE_SEND_QUESTION 2
+#define SERVER_RESPONSE_SEND_RESULT 3
+#define SERVER_RESPONSE_ANOTHER_USER_QUESTIONED 4
+#define SERVER_RESPONSE_FINISH 5
+#define SERVER_RESPONSE_WAIT 6
+#define SERVER_RESPONSE_SESSION_NOT_STARTED 7
+//utils.h
+\end{lstlisting}\textbf{}
+Continutul relevent care urmeaza separat intre caractere tilda poate varia in functie de ce se doreste a se trimite. Un exemplu ar cand serverul trimite o intrebare: 
+
+"$2$ $\sim$ text$\_$intrebare$\sim$varianta1$\sim$varianta2$\sim$varianta3$\sim$varianta4$\sim$timp$\_$ramas"
+
+\section{Concluzii}
+\subsection{Loc de inbunatatiri}
+O imbunatatire de mentionat ar fi o varianta mai asincrona a implementarii. In mod curent, atat serverul cat si clientul sunt angajati in structuri de tip bucla infinita si mentin foarte apropiat contactul, care cred eu ca ar fi putut fi minimizate. Uneori clientul are nevoie sa termine o actiune (scriere la tastatura) ca sa observe stadiul jocului.
+
+Interfata grafica este foarte minimalista si nu atat de user-friedly cat ar fi cerut un astfel de joc. 
+
+\subsection{Concluzii finale}
+Integrarea TCP-ul ca protocol de comunicare este potrivit pentru o aplicatie care doreste sa identifice clienti si sa mentitina conexiunea recunoscuta, ceea ce se pliaza cu scopurile acestei tip de proiect. 
+
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+% \bibliographystyle{splncs04}
+% \bibliography{mybibliography}
+%
+\begin{thebibliography}{8}
+\bibitem{ref_article1}
+What Is TCP Three-Way HandShake?, https://www.guru99.com/tcp-3-way-handshake.html
+
+\bibitem{ref_lncs1}
+Protocol operation, https://en.wikipedia.org/wiki/Transmission$\_$Control$\_$Protocol ,
+
+\bibitem{ref_book1}
+Computer Networks – http://www.info.uaic.ro/~computernetworks
+
+\end{thebibliography}
+\end{document}

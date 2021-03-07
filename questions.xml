@@ -1,0 +1,172 @@
+<catalog>
+   <question>
+      <question-name>
+         Care este cel mai intalt varf de munte al Romaniei
+      </question-name>
+      <question-variant corect="0">
+         Parangu
+      </question-variant>
+      <question-variant corect="1">
+         Moldoveanu
+      </question-variant>
+      <question-variant corect="0">
+         Omu
+      </question-variant>
+      <question-variant corect="0">
+         Negoiu
+      </question-variant>
+   </question>
+      <question>
+      <question-name>
+         Unde se ascundea Osama Bin Laden cand l-au gasit americanii?
+      </question-name>
+      <question-variant corect="0">
+           Iran
+      </question-variant>
+      <question-variant corect="1">
+           Pakistan
+      </question-variant>
+      <question-variant corect="0">
+           Oman
+      </question-variant>
+      <question-variant corect="0">
+           Bulgaria
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+        Care este cel mai vechi manuscris in limba romana?
+      </question-name>
+      <question-variant corect="1">
+         Scrisoarea lui Neacsu din 1521
+      </question-variant>
+      <question-variant corect="0">
+         Scrisoara Intai
+      </question-variant>
+      <question-variant corect="0">
+         Scrisoarea întâi a Sfântului Apostol Paul
+      </question-variant>
+      <question-variant corect="0">
+         Letopisetul Tarii Moldovei
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         Care era numarul de spitale al Romaniei la finalul anului 2018? 
+      </question-name>
+      <question-variant corect="0">
+         1000
+      </question-variant>
+      <question-variant corect="0">
+         2000
+      </question-variant>
+      <question-variant corect="0">
+         3000
+      </question-variant>
+      <question-variant corect="1">
+         658
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         Cati lideri a avut Uniunea Sovietica intre 1982-1991?
+      </question-name>
+      <question-variant corect="0">
+         1
+      </question-variant>
+      <question-variant corect="0">
+         2
+      </question-variant>
+      <question-variant corect="1">
+         3
+      </question-variant>
+      <question-variant corect="0">
+         4
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         Care este cel mai vandut brand de bere din Romania?
+      </question-name>
+      <question-variant corect="0">
+           Ceahlaul
+      </question-variant>
+      <question-variant corect="0">
+           Stejarul
+      </question-variant>
+      <question-variant corect="0">
+           Corona
+      </question-variant>
+      <question-variant corect="1">
+         Timisoreana
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         Intre ce ani a condus Robert Mugabe statul Zimbabwe?
+      </question-name>
+      <question-variant corect="1">
+         1980 - 2017
+      </question-variant>
+      <question-variant corect="0">
+         1965 - 1989
+      </question-variant>
+      <question-variant corect="0">
+         1989 - 1996, 2000 - 2004
+      </question-variant>
+      <question-variant corect="0">
+         1989 - prezent
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         'Quantity has a quality all its own'. - este citatul lui:
+      </question-name>
+      <question-variant corect="0">
+         Winston Churchill
+      </question-variant>
+      <question-variant corect="0">
+         Thomas Edison
+      </question-variant>
+      <question-variant corect="1">
+         Joseph Stalin
+      </question-variant>
+      <question-variant corect="0">
+        Charles Darwin
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         In ce an a fost publicata primul roman al lui Fyodor Dostoevsky?
+      </question-name>
+      <question-variant corect="0">
+           1880
+      </question-variant>
+      <question-variant corect="0">
+           1866
+      </question-variant>
+      <question-variant corect="1">
+           1846
+      </question-variant>
+      <question-variant corect="1">
+           1871
+      </question-variant>
+   </question>
+   <question>
+      <question-name>
+         Unde s-a domesticit pentru prima data calul?
+      </question-name>
+      <question-variant corect="0">
+           Pakistan
+      </question-variant>
+      <question-variant corect="1">
+           Kazakhstan
+      </question-variant>
+      <question-variant corect="0">
+           Irlanda
+      </question-variant>
+      <question-variant corect="0">
+           Bulgaria
+      </question-variant>
+   </question>
+</catalog>
