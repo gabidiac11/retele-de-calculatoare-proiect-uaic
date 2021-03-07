@@ -27,10 +27,10 @@ sudo apt-get install libncurses5-dev libncursesw5-dev
   sudo apt-get install build-essential gnome-devel
  ```
 ### Folosire:
-```
+````
 1. Dupa ce conexiunea la server s-a realizat, pe ecran va va fi indicat sa introduceti un username si un enter (username-ul poate fi lasat necompletat si veti prelua un nume autogenerat)
 2. Mai departe, daca sunteti primul care v-ati conectat este necesar ca cel putin inca un client sa se alature (lucru ce va aparea explicat pe ecran)
 3. Dupa ce sunt suficienti utilizatori, in cazul in care va aparea corpul intrebarii si 4 variante de raspuns, navigati cu sagetile si apasati enter pentru a alege o varianta
 4. Dupa ce ati selectat o varianta de raspuns, veti fi instiintat daca ati raspuns corect, dupa care daca nu ati ramas singur in sesiune va aparea numele utilizatorului care raspunde la intrebare in acest timp, ceea ce inseamna sa asteptati pana cand timpul ii va expira acestuia sau va trimite un raspuns si in cele din urma va va veni randul (dupa ce si alti utilizatori au primit si raspuns la intrebarea curenta)
 5. La final vor aparea rezultatul dumneavoastra, un mesaj daca ati castigat sau numele utilizatorului care a castigat precum si scorul sau.
-```
+````
